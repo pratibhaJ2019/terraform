@@ -18,18 +18,19 @@ resource "aws_key_pair" "jenkinsKey" {
 }
 
 resource "aws_instance" "JenkinsServer" {
+  key_name      = aws_key_pair.jenkinsKey.key_name
   ami           = "ami-096fda3c22c1c990a"
   instance_type = "t2.micro"
-  vpc_security_group_ids = [
-    sg-05c672069a93e2ebc
-  ]
 
   tags = {
     Name = "JenkinsServer"
   }
+
+  security_groups = [ "sg-05c672069a93e2ebc" ]
+
   connection {
     type        = "ssh"
-    user        = "ubuntu"
+    user        = "ec2-user"
     private_key = file("key")
     host        = self.public_ip
   }
