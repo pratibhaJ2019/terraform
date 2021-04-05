@@ -21,7 +21,7 @@ resource "aws_instance" "JenkinsServer" {
     Name = "JenkinsServer"
   }
 
-  resource "aws_key_pair" "jenkinsKey" {
+resource "aws_key_pair" "jenkinsKey" {
   key_name   = "jenkinsKey"
   public_key = file("key.pub")
 }
