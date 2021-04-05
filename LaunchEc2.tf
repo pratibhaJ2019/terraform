@@ -26,8 +26,6 @@ resource "aws_instance" "JenkinsServer" {
     Name = "JenkinsServer"
   }
 
-  security_groups = [ "sg-05c672069a93e2ebc" ]
-
   connection {
     type        = "ssh"
     user        = "ec2-user"
