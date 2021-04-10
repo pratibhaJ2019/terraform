@@ -6,3 +6,4 @@ resource "aws_instance" "FirstEC2" {
   tags = {
     Name = "FirstEC2"
   }
+}
