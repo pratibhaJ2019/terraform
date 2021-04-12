@@ -11,8 +11,8 @@ resource "aws_instance" "FirstEC2" {
   tags = {
     Name = "FirstEC2"
   }
-
-  resource "aws_ebs_volume" "web_storage" {
+}
+resource "aws_ebs_volume" "web_storage" {
     availability_zone  = "us-east-1a"
     type       = "gp2"
     size       = 2
@@ -20,7 +20,6 @@ resource "aws_instance" "FirstEC2" {
         Name = "web_storage"
     }
 }
-
 resource "aws_volume_attachment" "ebs_attach" {
     device_name  = "/dev/sdc"
     volume_id    = "${aws_ebs_volume.web_storage.id}"
@@ -46,6 +45,4 @@ resource "null_resource" "get_files" {
         
     }
     depends_on  = ["aws_volume_attachment.ebs_attach"]
-}
-
 }
