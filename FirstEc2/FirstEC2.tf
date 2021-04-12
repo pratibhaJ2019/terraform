@@ -45,5 +45,5 @@ resource "null_resource" "get_files" {
         ]
         
     }
-    depends_on  = ["aws_volume_attachment.ebs_attach"]
+    depends_on  = [aws_volume_attachment.ebs_attach]
 }
