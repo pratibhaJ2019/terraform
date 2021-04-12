@@ -15,7 +15,7 @@
 
 
 resource "aws_instance" "FirstEC2" {
-    terraform import aws_instance.FirstEC2 
+    terraform import aws_instance.FirstEC2 i-0793f2ab9fee5d0f4
 }
 
 resource "aws_ebs_volume" "web_storage" {
