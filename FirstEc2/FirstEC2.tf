@@ -13,7 +13,10 @@
 # }
 #}
 
-terraform import aws_instance.FirstEC2 
+
+resource "aws_instance" "FirstEC2" {
+    terraform import aws_instance.FirstEC2 
+}
 
 resource "aws_ebs_volume" "web_storage" {
     availability_zone  = aws_instance.FirstEC2.availability_zone
