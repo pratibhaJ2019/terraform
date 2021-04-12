@@ -11,4 +11,41 @@ resource "aws_instance" "FirstEC2" {
   tags = {
     Name = "FirstEC2"
   }
+
+  resource "aws_ebs_volume" "web_storage" {
+    availability_zone  = "us-east-1a"
+    type       = "gp2"
+    size       = 2
+    tags       = {
+        Name = "web_storage"
+    }
+}
+
+resource "aws_volume_attachment" "ebs_attach" {
+    device_name  = "/dev/sdc"
+    volume_id    = "${aws_ebs_volume.web_storage.id}"
+    instance_id  = "${aws_instance.FirstEC2.id}"
+    force_detach = true
+}
+
+#Mount EBS and Add data files.
+resource "null_resource" "get_files" {
+    connection {
+        type  = "ssh"
+        user  = "ec2-user"
+        private_key  = file("/tmp/ec2Key/newKey.pem")
+        host  = aws_instance.ec2_web.public_ip
+    }
+    provisioner "remote-exec" {
+        inline = [
+                 "sudo mkfs -t ext4 /dev/xvws",
+                 "sudo mount /dev/xvdc /var/www/html",
+                 "sudo rm -rf /var/www/html/*",
+                 "sudo git clone https://github.com/chay2199/bootstrap_101.git /var/www/html/",
+        ]
+        
+    }
+    depends_on  = ["aws_volume_attachment.ebs_attach"]
+}
+
 }
