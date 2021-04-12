@@ -37,7 +37,7 @@ resource "null_resource" "get_files" {
     }
     provisioner "remote-exec" {
         inline = [
-                 "sudo rm /var/www/html/index.html"
+                 "sudo rm /var/www/html/index.html",
                  "sudo mkfs -t ext4 /dev/sdc",
                  "sudo mount /dev/sdc /var/www/html",
                  "sudo rm -rf /var/www/html/*",
