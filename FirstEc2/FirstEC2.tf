@@ -12,6 +12,9 @@
 #   Name = "FirstEC2"
 # }
 #}
+
+terraform import aws_instance.FirstEC2 i-FirstEC2
+
 resource "aws_ebs_volume" "web_storage" {
     availability_zone  = aws_instance.FirstEC2.availability_zone
     type       = "gp2"
