@@ -22,8 +22,8 @@ resource "aws_ebs_volume" "web_storage" {
 }
 resource "aws_volume_attachment" "ebs_attach" {
     device_name  = "/dev/sdc"
-    volume_id    = "${aws_ebs_volume.web_storage.id}"
-    instance_id  = "${aws_instance.FirstEC2.id}"
+    volume_id    = aws_ebs_volume.web_storage.id
+    instance_id  = aws_instance.FirstEC2.id
     force_detach = true
 }
 
@@ -33,7 +33,7 @@ resource "null_resource" "get_files" {
         type  = "ssh"
         user  = "ec2-user"
         private_key  = file("/tmp/ec2Key/newKey.pem")
-        host  = aws_instance.ec2_web.public_ip
+        host  = aws_instance.FirstEC2.public_ip
     }
     provisioner "remote-exec" {
         inline = [
