@@ -13,7 +13,7 @@ resource "aws_instance" "FirstEC2" {
   }
 }
 resource "aws_ebs_volume" "web_storage" {
-    availability_zone  = "us-east-1e"
+    availability_zone  = aws_instance.FirstEC2.availability-zone
     type       = "gp2"
     size       = 2
     tags       = {
