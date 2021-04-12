@@ -37,9 +37,10 @@ resource "null_resource" "get_files" {
     }
     provisioner "remote-exec" {
         inline = [
-                 "sudo mkfs -t ext4 /dev/xvws",
-                 "sudo mount /dev/xvdc /var/www/html",
+                 "sudo mkfs -t ext4 /dev/sdc",
+                 "sudo mount /dev/sdc /var/www/html",
                  "sudo rm -rf /var/www/html/*",
+                 "sudo yum install git -y",
                  "sudo git clone https://github.com/chay2199/bootstrap_101.git /var/www/html/",
         ]
         
